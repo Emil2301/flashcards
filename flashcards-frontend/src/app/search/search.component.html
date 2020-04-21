@@ -1,4 +1,4 @@
 <div class="container">
-  <div class="input"><input type="text" /></div>
-  <div class="button"><button>Search</button></div>
+  <div class="input"><input type="text" #searchInput /></div>
+  <div class="button"><button (click)="sendInputValue(searchInput.value)">Search</button></div>
 </div>
