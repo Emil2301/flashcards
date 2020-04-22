@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Search } from '../models/search.model';
 
 @Injectable({
   providedIn: 'root',
@@ -7,9 +8,7 @@ import { Injectable } from '@angular/core';
 export class SearchService {
   constructor(private http: HttpClient) {}
 
-  searchFlashcard() {
-    return this.http.get('http://localhost:3000/test', {headers: {
-			'Access-Control-Allow-Origin': '*'
-		}});
+  searchFlashcard(inputValue) {
+    return this.http.post<Search>('http://localhost:3000/test',  { title: inputValue || 'test' });
   }
 }
