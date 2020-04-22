@@ -8,6 +8,8 @@ export class SearchService {
   constructor(private http: HttpClient) {}
 
   searchFlashcard() {
-    return this.http.get('https://jsonplaceholder.typicode.com/todos/1');
+    return this.http.get('http://localhost:3000/test', {headers: {
+			'Access-Control-Allow-Origin': '*'
+		}});
   }
 }
