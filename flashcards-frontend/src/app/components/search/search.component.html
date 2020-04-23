@@ -1,6 +1,23 @@
 <div class="container">
-  <div class="input"><input type="text" #searchInput /></div>
-  <div class="button"><button (click)="sendInputValue(searchInput.value)">Search</button></div>
+  <div class="input">
+    <input
+      type="text"
+      #searchInput
+      (keyup.enter)="sendInputValue(searchInput.value)"
+    />
+  </div>
+  <div class="button">
+    <button (click)="sendInputValue(searchInput.value)">
+      Search
+    </button>
+  </div>
 </div>
 
-<h3>{{title}}</h3>
+<h3>{{ title }}</h3>
+
+<div *ngIf="translations">
+  <div *ngFor="let translation of translations">
+    <p [innerHTML]="translation.source"></p>
+    <p [innerHTML]="translation.target"></p>
+  </div>
+</div>

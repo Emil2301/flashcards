@@ -1,3 +1,4 @@
 export interface Search {
-  title: string;
+	title: string;
+	translations: object;
 }

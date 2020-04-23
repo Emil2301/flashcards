@@ -11,12 +11,13 @@ export class SearchComponent {
 	constructor(private searchService: SearchService) {}
 	
 	title;
+	translations;
 
   sendInputValue(inputValue) {
-    this.searchService.searchFlashcard(inputValue).subscribe((data: Search) => {
-			console.log(inputValue);
+    this.searchService.searchFlashcard(inputValue.trim()).subscribe((data: Search) => {
 			this.title = data.title;
-			console.log(this.title);			
+			this.translations = data.translations;
+			console.log(data);			
     });
   }
 }
