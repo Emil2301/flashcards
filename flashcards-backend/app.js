@@ -1,14 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors')
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const config = require('./config');
 
-var indexRouter = require('./routes/index');
-var testRouter = require('./routes/test');
+mongoose.connect(config.db, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-var app = express();
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
+const indexRouter = require('./routes/index');
+const testRouter = require('./routes/test');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

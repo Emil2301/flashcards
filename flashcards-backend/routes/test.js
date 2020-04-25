@@ -1,7 +1,8 @@
-var express = require('express');
-var request = require('request');
-var router = express.Router();
-var createError = require('http-errors');
+const express = require('express');
+const request = require('request');
+const router = express.Router();
+const createError = require('http-errors');
+const Flashcard = require('../models/flashcard');
 
 let query = 'dupa';
 let translations = '';
@@ -12,11 +13,22 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res, next) {
+  const flashCardData = new Flashcard({
+    title: 'Test title', // String is shorthand for {type: String}
+    source: 'Test source',
+    target: 'Test target',
+  });
+
+  flashCardData.save((err) => {
+    console.log(err);
+  });
+
   console.log(req.body.title);
   const options = {
     url: `https://api.pons.com/v1/dictionary?q=${req.body.title}&l=depl`,
     headers: {
-      'X-Secret': '03777962ff3866e056ddee8eb0a9d2f54d953b9a108083985b0a9275b26b2435',
+      'X-Secret':
+        '03777962ff3866e056ddee8eb0a9d2f54d953b9a108083985b0a9275b26b2435',
     },
   };
   function callback(error, response, body) {
