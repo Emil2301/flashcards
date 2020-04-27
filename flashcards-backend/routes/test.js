@@ -13,15 +13,7 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res, next) {
-  const flashCardData = new Flashcard({
-    title: 'Test title', // String is shorthand for {type: String}
-    source: 'Test source',
-    target: 'Test target',
-  });
-
-  flashCardData.save((err) => {
-    console.log(err);
-  });
+	Flashcard.deleteMany({title: 'Test title'})
 
   console.log(req.body.title);
   const options = {
@@ -33,9 +25,23 @@ router.post('/', function (req, res, next) {
   };
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
-      const info = JSON.parse(body);
+			const info = JSON.parse(body);
       query = info[0].hits[0].roms[0].headword;
-      translations = info[0].hits[0].roms[0].arabs[0].translations;
+			translations = info[0].hits[0].roms[0].arabs[0].translations;
+			const flashCardData = new Flashcard({
+				title: query, // String is shorthand for {type: String}
+				source: 'Test source',
+				target: 'Test target',
+			});
+		
+			flashCardData.save((err) => {
+				console.log(err);
+			});
+
+			Flashcard.find(function (err, cards) {
+				if (err) return console.error(err);
+				console.log(cards);
+			})
       res.json({ title: query, translations });
     } else {
       next(createError(404));

@@ -5,15 +5,37 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const config = require('./config');
 
-mongoose.connect(config.db, {
+mongoose.connect('mongodb://localhost/test', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('connected to db');
+});
+
+const Flashcard = require('./models/flashcard');
+
+Flashcard.findByIdAndUpdate('5ea6d94fc4e8a64443b0010b', { source: 'updated source3' }, (err, res) => {
+	console.log(res);
+});
+
+Flashcard.findByIdAndRemove('5ea6ccc70363b71b808eafc3', (err, res) => {
+	console.log(res);
+});
+
+
+
+Flashcard.find().then((data) => {
+	console.log(data);
+}).catch((err) =>  {
+	console.log(err);
+})
+
+
 
 const indexRouter = require('./routes/index');
 const testRouter = require('./routes/test');
