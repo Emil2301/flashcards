@@ -16,8 +16,11 @@
 <h3>{{ title }}</h3>
 
 <div *ngIf="translations">
-  <div *ngFor="let translation of translations">
-    <p [innerHTML]="translation.source"></p>
-    <p [innerHTML]="translation.target"></p>
-  </div>
+	<ul>
+		<li *ngFor="let translation of translations">
+			<p [innerHTML]="translation.source"></p>
+			<p [innerHTML]="translation.target"></p>
+			Zapisz <input type="checkbox">
+		</li>
+	</ul>  
 </div>

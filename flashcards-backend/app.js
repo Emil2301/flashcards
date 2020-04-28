@@ -29,11 +29,11 @@ const Flashcard = require('./models/flashcard');
 
 
 
-Flashcard.find().then((data) => {
-	console.log(data);
-}).catch((err) =>  {
-	console.log(err);
-})
+// Flashcard.find().then((data) => {
+// 	console.log(data);
+// }).catch((err) =>  {
+// 	console.log(err);
+// })
 
 
 

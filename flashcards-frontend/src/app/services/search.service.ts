@@ -30,8 +30,8 @@ export class SearchService {
 
   searchFlashcard(inputValue): Observable<Search> {
     return this.http
-      .post<Search>('http://localhost:3000/test', {
-        title: inputValue || 'test',
+      .post<Search>('http://localhost:3000/search', {
+        title: inputValue,
       })
       .pipe(catchError(this.handleError));
   }
