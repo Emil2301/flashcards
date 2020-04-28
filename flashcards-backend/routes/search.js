@@ -4,16 +4,11 @@ const router = express.Router();
 const createError = require('http-errors');
 const Flashcard = require('../models/flashcard');
 
-let query = 'dupa';
+let query = '';
 let translations = '';
 
-/* GET home page. */
-router.get('/', function (req, res) {
-  res.json({ title: 'stronka' });
-});
-
 router.post('/', function (req, res, next) {
-	Flashcard.deleteMany({title: 'Test title'})
+	// Flashcard.deleteMany({title: 'Test title'})
 
   console.log(req.body.title);
   const options = {
@@ -30,8 +25,8 @@ router.post('/', function (req, res, next) {
 			translations = info[0].hits[0].roms[0].arabs[0].translations;
 			const flashCardData = new Flashcard({
 				title: query, // String is shorthand for {type: String}
-				source: 'Test source',
-				target: 'Test target',
+				source: translations[0].source,
+				target: translations[0].target,
 			});
 		
 			flashCardData.save((err) => {
@@ -42,7 +37,7 @@ router.post('/', function (req, res, next) {
 				if (err) return console.error(err);
 				console.log(cards);
 			})
-      res.json({ title: query, translations });
+      res.status(200).json({ title: query, translations });
     } else {
       next(createError(404));
     }

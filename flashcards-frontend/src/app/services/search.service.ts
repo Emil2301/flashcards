@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Search } from '../models/search.model';
 
@@ -11,6 +11,9 @@ export class SearchService {
   constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
+    if (error.status === 404) {
+      return throwError('Your input was incorrect');
+    }
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -25,7 +28,7 @@ export class SearchService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  searchFlashcard(inputValue) {
+  searchFlashcard(inputValue): Observable<Search> {
     return this.http
       .post<Search>('http://localhost:3000/test', {
         title: inputValue || 'test',

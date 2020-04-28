@@ -19,13 +19,13 @@ db.once('open', function () {
 
 const Flashcard = require('./models/flashcard');
 
-Flashcard.findByIdAndUpdate('5ea6d94fc4e8a64443b0010b', { source: 'updated source3' }, (err, res) => {
-	console.log(res);
-});
+// Flashcard.findByIdAndUpdate('5ea6d94fc4e8a64443b0010b', { source: 'updated source3' }, (err, res) => {
+// 	console.log(res);
+// });
 
-Flashcard.findByIdAndRemove('5ea6ccc70363b71b808eafc3', (err, res) => {
-	console.log(res);
-});
+// Flashcard.findByIdAndRemove('5ea6f31c5d8a3b3e98a4c430', (err, res) => {
+// 	console.log(res);
+// });
 
 
 
@@ -38,7 +38,7 @@ Flashcard.find().then((data) => {
 
 
 const indexRouter = require('./routes/index');
-const testRouter = require('./routes/test');
+const searchRouter = require('./routes/search');
 
 const app = express();
 
@@ -54,7 +54,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/test', testRouter);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

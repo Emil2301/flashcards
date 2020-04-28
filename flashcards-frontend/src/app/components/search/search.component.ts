@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SearchService } from 'src/app/services/search.service';
 import { Search } from 'src/app/models/search.model';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-search',
@@ -18,6 +18,9 @@ export class SearchComponent {
 			this.title = data.title;
 			this.translations = data.translations;
 			console.log(data);			
-    });
+    }, error => {
+			this.title = error;
+			this.translations = ''
+		});
   }
 }
