@@ -29,9 +29,14 @@ export class SearchComponent {
 
   onCheckboxChange(isChecked, source, target) {
     if (isChecked) {
-      console.log('Title: ' + this.title);
-      console.log('source: ' + source);
-      console.log('target: ' + target);
+			this.searchService.postFlashcard(this.title, source, target).subscribe(
+				(data: Search) => {					
+					console.log(data);
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
     }
   }
 }

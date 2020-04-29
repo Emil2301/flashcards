@@ -35,4 +35,14 @@ export class SearchService {
       })
       .pipe(catchError(this.handleError));
   }
+
+  postFlashcard(title, source, target): Observable<Search> {
+    return this.http
+      .post<Search>('http://localhost:3000/save', {
+        title,
+        source,
+        target,
+      })
+      .pipe(catchError(this.handleError));
+  }
 }

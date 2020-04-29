@@ -39,6 +39,7 @@ const Flashcard = require('./models/flashcard');
 
 const indexRouter = require('./routes/index');
 const searchRouter = require('./routes/search');
+const saveRouter = require('./routes/save');
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/search', searchRouter);
+app.use('/save', saveRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
