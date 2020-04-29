@@ -7,20 +7,31 @@ import { SearchService } from 'src/app/services/search.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent {	
-	constructor(private searchService: SearchService) {}
-	
-	title;
-	translations;
+export class SearchComponent {
+  constructor(private searchService: SearchService) {}
+
+  title;
+  translations;
 
   sendInputValue(inputValue) {
-    this.searchService.searchFlashcard(inputValue.trim()).subscribe((data: Search) => {
-			this.title = data.title;
-			this.translations = data.translations;
-			console.log(data);			
-    }, error => {
-			this.title = error;
-			this.translations = ''
-		});
+    this.searchService.searchFlashcard(inputValue.trim()).subscribe(
+      (data: Search) => {
+        this.title = data.title;
+        this.translations = data.translations;
+        console.log(data);
+      },
+      (error) => {
+        this.title = error;
+        this.translations = '';
+      }
+    );
+  }
+
+  onCheckboxChange(isChecked, source, target) {
+    if (isChecked) {
+      console.log('Title: ' + this.title);
+      console.log('source: ' + source);
+      console.log('target: ' + target);
+    }
   }
 }

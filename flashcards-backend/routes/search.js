@@ -4,7 +4,7 @@ const router = express.Router();
 const createError = require('http-errors');
 const Flashcard = require('../models/flashcard');
 
-let query = '';
+let title = '';
 let translations = '';
 
 router.post('/', function (req, res, next) {
@@ -19,49 +19,40 @@ router.post('/', function (req, res, next) {
   };
   function callback(error, response, body) {
     if (!error && response.statusCode === 200) {
-      const info = JSON.parse(body);
-      if (info.length === 1) {
-        query = info[0].hits[0].roms[0].headword;
-        translations = info[0].hits[0].roms[0].arabs[0].translations;
-        const flashCardData = new Flashcard({
-          title: query, // String is shorthand for {type: String}
-          source: translations[0].source,
-          target: translations[0].target,
-        });
-
-        flashCardData.save((err) => {
-          console.log(err);
-        });
-
-        // Flashcard.find(function (err, cards) {
-        //   if (err) return console.error(err);
-        //   console.log(cards);
-        // });
-        res.json({ title: query, translations });
-      } else if (info.length === 2) {
-        let newInfo;
-        info.map((obj) => {
-          if (obj.lang === 'pl') {
-            newInfo = obj;
-          }
-        });
-        if (newInfo.hits.length === 1) {
-          translations = [];
-          console.log(newInfo.hits);
-          newInfo.hits[0].roms[0].arabs.map((arab) => {
-            translations.push(arab.translations[0]);
-          });
-          console.log(translations);
-          res.json({ title: req.body.title, translations });
-        } else {
-          translations = newInfo.hits;
-          res.json({ title: req.body.title, translations });
+      const data = JSON.parse(body);
+      let newInfo;
+      data.map((obj) => {
+        if (obj.lang === 'pl') {
+          newInfo = obj.hits;
         }
-        res.json({ title: req.body.title });
-      } else {
-        res.json({ title: req.body.title });
-      }
+      });
 
+      newInfo.map((obj) => {
+        if (obj.type === 'entry') {
+          title = newInfo[0].roms[0].headword;
+          translations = newInfo[0].roms[0].arabs[0].translations;
+        } else if (obj.type === 'translation') {
+          title = req.body.title;
+          translations = newInfo;
+        }
+      });
+
+      // const flashCardData = new Flashcard({
+      //   title,
+      //   source: translations[0].source,
+      //   target: translations[0].target,
+      // });
+
+      // flashCardData.save((err) => {
+      //   console.log(err);
+      // });
+
+      // Flashcard.find(function (err, cards) {
+      //   if (err) return console.error(err);
+      //   console.log(cards);
+			// });
+      return res.json({ title, translations });
+			
     } else {
       next(createError(404));
     }
