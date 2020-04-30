@@ -17,8 +17,11 @@ export class SearchComponent {
     this.searchService.searchFlashcard(inputValue.trim()).subscribe(
       (data: Search) => {
         this.title = data.title;
-        this.translations = data.translations;
-        console.log(data);
+				this.translations = data.translations;
+				this.translations.map(translation => {
+					translation.saved = false;
+				})
+        console.log(this.translations);
       },
       (error) => {
         this.title = error;
@@ -27,9 +30,14 @@ export class SearchComponent {
     );
   }
 
-  onCheckboxChange(isChecked, source, target) {
+  onCheckboxChange(isChecked, source, target, translations) {
     if (isChecked) {
-			this.searchService.postFlashcard(this.title, source, target).subscribe(
+			translations.map(translation => {
+				if (translation.target === target) {
+					translation.saved = true;
+				}
+			})
+			this.searchService.postFlashcard(this.title, source, target, translations).subscribe(
 				(data: Search) => {					
 					console.log(data);
 				},

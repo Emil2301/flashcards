@@ -6,6 +6,8 @@ const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect('mongodb://localhost/test', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
