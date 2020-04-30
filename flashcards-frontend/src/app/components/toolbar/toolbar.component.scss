@@ -1,0 +1,20 @@
+nav {
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+    li {
+      a {
+				font-size: 30px;
+        text-decoration: none;
+        color: black;
+        &.active {
+          color: lightgreen;
+        }
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+}
