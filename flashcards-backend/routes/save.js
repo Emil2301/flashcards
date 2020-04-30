@@ -5,7 +5,12 @@ const createError = require('http-errors');
 const Flashcard = require('../models/flashcard');
 
 router.get('/', function (req, res) {
-  res.send('Hello World!');
+  let db;
+  Flashcard.find((err, cards) => {
+    if (err) return console.error(err);
+    db = cards;
+    return res.json({ db });
+  });
 });
 
 router.post('/', function (req, res, next) {
@@ -19,7 +24,7 @@ router.post('/', function (req, res, next) {
   Flashcard.find({ title: req.body.title }, (err, cards) => {
     if (err) return console.error(err);
     if (!cards.length) {
-			console.log('WLASNIE ZAPISALES ' + req.body.title);
+      console.log('WLASNIE ZAPISALES ' + req.body.title);
       flashCardData.save((err) => {
         Flashcard.find({ title: req.body.title }, (err, cards) => {
           if (err) return console.error(err);

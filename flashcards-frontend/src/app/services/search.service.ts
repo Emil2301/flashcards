@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DB } from '../models/db.model';
 import { Search } from '../models/search.model';
 
 @Injectable({
@@ -41,9 +42,15 @@ export class SearchService {
       .post<Search>('http://localhost:3000/save', {
         title,
         source,
-				target,
-				translations
+        target,
+        translations,
       })
+      .pipe(catchError(this.handleError));
+  }
+
+  getFlashcard(): Observable<DB> {
+    return this.http
+      .get<DB>('http://localhost:3000/save')
       .pipe(catchError(this.handleError));
   }
 }
