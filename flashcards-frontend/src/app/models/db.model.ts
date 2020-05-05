@@ -1,3 +1,3 @@
 export interface DB {
-  db: object;
+  cards: object;
 }

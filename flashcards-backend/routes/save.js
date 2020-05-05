@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
   Flashcard.find((err, cards) => {
     if (err) return console.error(err);
     db = cards;
-    return res.json({ db });
+    return res.json({ cards });
   });
 });
 
@@ -50,6 +50,17 @@ router.post('/', function (req, res, next) {
   // });
 
   res.json({ message: 'Your flashcard was saved', title: req.body.title, source: req.body.source, target: req.body.target });
+});
+
+router.delete('/:title', function (req, res) {
+  console.log(req.params.title);
+  Flashcard.findOneAndRemove({ title: req.params.title }, (err, response) => {
+    Flashcard.find((err, cards) => {
+      if (err) return console.error(err);
+      console.log(cards);
+      res.json({ cards });
+    });
+  });
 });
 
 module.exports = router;
