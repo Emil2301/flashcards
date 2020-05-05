@@ -5,16 +5,13 @@ const createError = require('http-errors');
 const Flashcard = require('../models/flashcard');
 
 router.get('/', function (req, res) {
-  let db;
   Flashcard.find((err, cards) => {
     if (err) return console.error(err);
-    db = cards;
-    return res.json({ cards });
+    return res.status(200).json({ cards });
   });
 });
 
 router.post('/', function (req, res, next) {
-  // console.log(req.body);
 
   const flashCardData = new Flashcard({
     title: req.body.title,
@@ -41,13 +38,6 @@ router.post('/', function (req, res, next) {
       });
     }
   });
-
-  // flashCardData.save((err) => {
-  //   Flashcard.find((err, cards) => {
-  //     if (err) return console.error(err);
-  //     console.log(cards);
-  //   });
-  // });
 
   res.json({ message: 'Your flashcard was saved', title: req.body.title, source: req.body.source, target: req.body.target });
 });

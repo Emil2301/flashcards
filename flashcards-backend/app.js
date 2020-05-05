@@ -21,25 +21,6 @@ db.once('open', function () {
 
 const Flashcard = require('./models/flashcard');
 
-// Flashcard.findByIdAndUpdate('5ea6d94fc4e8a64443b0010b', { source: 'updated source3' }, (err, res) => {
-// 	console.log(res);
-// });
-
-// Flashcard.findByIdAndRemove('5ea6f31c5d8a3b3e98a4c430', (err, res) => {
-// 	console.log(res);
-// });
-
-
-
-// Flashcard.find().then((data) => {
-// 	console.log(data);
-// }).catch((err) =>  {
-// 	console.log(err);
-// })
-
-
-
-const indexRouter = require('./routes/index');
 const searchRouter = require('./routes/search');
 const saveRouter = require('./routes/save');
 
@@ -56,7 +37,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/search', searchRouter);
 app.use('/save', saveRouter);
 

@@ -52,11 +52,17 @@ export class SearchService {
     return this.http
       .get<DB>('http://localhost:3000/save')
       .pipe(catchError(this.handleError));
-	}
+  }
 
-	deleteFlashcard(title): Observable<DB> {
+  deleteFlashcard(title): Observable<DB> {
     return this.http
       .delete<DB>(`http://localhost:3000/save/${title}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  changeLanguage(language) {
+    return this.http
+      .get<DB>(`http://localhost:3000/search/${language}`)
       .pipe(catchError(this.handleError));
   }
 }
