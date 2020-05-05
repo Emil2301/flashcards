@@ -1,13 +1,13 @@
-<h1>Choose languages in dictionary</h1>
+<div class="container">
+  <h1 class="title">Change languages in dictionary</h1>
 
-<mat-form-field>
-  <mat-label>Select an option</mat-label>
-  <mat-select [(value)]="selected" (selectionChange)="changeLanguage($event)">
-    <mat-option value="depl">Polish - German</mat-option>
-    <mat-option value="espl">Polish - Spanish</mat-option>
-    <mat-option value="enpl">Polish - English</mat-option>
-    <mat-option value="plru">Polish - Russian</mat-option>
-  </mat-select>
-</mat-form-field>
-
-<p>You selected: {{ selected }}</p>
+  <mat-form-field>
+    <mat-label>Select languages</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="changeLanguage($event)">
+      <mat-option value="depl">Polish - German</mat-option>
+      <mat-option value="espl">Polish - Spanish</mat-option>
+      <mat-option value="enpl">Polish - English</mat-option>
+      <mat-option value="plru">Polish - Russian</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
