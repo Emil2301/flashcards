@@ -20,18 +20,20 @@
     <li *ngFor="let translation of translations">
       <p [innerHTML]="translation.source"></p>
       <p [innerHTML]="translation.target"></p>
-      Save
-      <input
-        type="checkbox"
-        (change)="
-          onCheckboxChange(
-            $event.target.checked,
-            translation.source,
-            translation.target,
-            translations
-          )
-        "
-      />
+      <div class="save">
+        Save
+        <input
+          type="checkbox"
+          (change)="
+            onCheckboxChange(
+              $event.target.checked,
+              translation.source,
+              translation.target,
+              translations
+            )
+          "
+        />
+      </div>
     </li>
   </ul>
 </div>

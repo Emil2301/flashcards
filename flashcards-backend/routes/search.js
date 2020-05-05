@@ -5,14 +5,14 @@ const createError = require('http-errors');
 const Flashcard = require('../models/flashcard');
 
 let title = '';
-let translations = '';
-let language = 'depl'
+let translations;
+let language = 'depl';
 
 router.get('/:language', function (req, res) {
-	console.log(req.params.language);
-	language = req.params.language;
-  res.json({language: req.params.language})
-})
+  console.log(req.params.language);
+  language = req.params.language;
+  res.json({ language: req.params.language });
+});
 
 router.post('/', function (req, res, next) {
   console.log(req.body.title);
@@ -25,12 +25,19 @@ router.post('/', function (req, res, next) {
   function callback(error, response, body) {
     if (!error && response.statusCode === 200) {
       const data = JSON.parse(body);
-      let newInfo;
+      let newInfo = [];
       data.map((obj) => {
         if (obj.lang === 'pl') {
-          newInfo = obj.hits;
+          newInfo = newInfo.concat(obj.hits);
+        } else if (obj.lang === 'es' || 'de' || 'ru' || 'en') {
+          newInfo = newInfo.concat(obj.hits);
         }
       });
+
+      if (!newInfo) {
+        next(createError(404));
+        return;
+      }
 
       newInfo.map((obj) => {
         if (obj.type === 'entry') {

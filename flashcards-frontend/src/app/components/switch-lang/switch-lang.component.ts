@@ -14,6 +14,7 @@ export class SwitchLangComponent implements OnInit {
   ngOnInit(): void {}
 
   changeLanguage(event) {
+		this.selected = event.value;
 		console.log(event.value);
 		this.searchService.changeLanguage(event.value).subscribe(
       (data) => {
