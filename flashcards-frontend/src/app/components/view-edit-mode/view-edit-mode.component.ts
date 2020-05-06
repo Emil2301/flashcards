@@ -4,11 +4,11 @@ import { Search } from 'src/app/models/search.model';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
-  selector: 'app-edit-mode',
-  templateUrl: './edit-mode.component.html',
-  styleUrls: ['./edit-mode.component.scss'],
+  selector: 'app-view-edit-mode',
+  templateUrl: './view-edit-mode.component.html',
+  styleUrls: ['./view-edit-mode.component.scss'],
 })
-export class EditModeComponent implements OnInit {
+export class ViewEditModeComponent implements OnInit {
   cards;
   editModeOn = false;
   editionStarted = false;

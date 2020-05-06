@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EditModeComponent } from './components/edit-mode/edit-mode.component';
 import { SearchComponent } from './components/search/search.component';
 import { SwitchLangComponent } from './components/switch-lang/switch-lang.component';
 import { ErrorComponent } from './components/error/error.component';
+import { ViewEditModeComponent } from './components/view-edit-mode/view-edit-mode.component';
 
 const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'switch-lang', component: SwitchLangComponent },
-	{ path: 'edit-mode', component: EditModeComponent },
+	{ path: 'view-edit-mode', component: ViewEditModeComponent },
 	{ path: '',   redirectTo: '/search', pathMatch: 'full' },
 	{ path: '**', component: ErrorComponent }, 
 ];
