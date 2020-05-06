@@ -1,0 +1,71 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: #3f51b5;
+  color: white;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.navigation {
+  display: none;
+}
+
+span.spacer {
+  a {
+    text-decoration: none;
+    color: white;
+    &.active {
+      color: white;
+    }
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+a {
+	text-decoration: none;
+	color: white;
+	&.active {
+		color: #b5a33f;
+	}
+	&:hover {
+		color: #b53f51;
+	}
+}
+
+@media (min-width: 962px) {
+  .sidenav {
+    display: none;
+  }
+  .navigation {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    a {
+      text-decoration: none;
+      color: white;
+      &.active {
+        color: #b5a33f;
+      }
+      &:hover {
+        color: #b53f51;
+      }
+    }
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

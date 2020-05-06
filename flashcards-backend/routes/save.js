@@ -12,7 +12,6 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res, next) {
-
   const flashCardData = new Flashcard({
     title: req.body.title,
     translations: req.body.translations,

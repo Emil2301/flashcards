@@ -1,39 +1,36 @@
 <div class="container">
-  <div class="input">
+  <mat-form-field class="example-full-width">
+    <mat-label>Type a word</mat-label>
     <input
+      matInput
       type="text"
       #searchInput
       (keyup.enter)="sendInputValue(searchInput.value)"
+      autocomplete="off"
     />
-  </div>
-  <div class="button">
-    <button (click)="sendInputValue(searchInput.value)">
-      Search
-    </button>
-  </div>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="sendInputValue(searchInput.value)"
+  >
+    Search
+  </button>
+</div>
+<div class="error">
+  <h1>{{ error ? error : null }}</h1>
 </div>
 
-<h3>{{ title }}</h3>
-
-<div *ngIf="translations">
-  <ul>
-    <li *ngFor="let translation of translations">
-      <p [innerHTML]="translation.source"></p>
-      <p [innerHTML]="translation.target"></p>
-      <div class="save">
-        Save
-        <input
-          type="checkbox"
-          (change)="
-            onCheckboxChange(
-              $event.target.checked,
-              translation.source,
-              translation.target,
-              translations
-            )
-          "
-        />
-      </div>
-    </li>
-  </ul>
-</div>
+<mat-selection-list
+  #list
+  *ngIf="translations"
+  (selectionChange)="onCheckboxChange($event)"
+>
+  <mat-list-option
+    *ngFor="let translation of translations"
+    [value]="[translation, translations]"
+  >
+    <p [innerHTML]="translation.source"></p>
+    <p [innerHTML]="translation.target"></p>
+  </mat-list-option>
+</mat-selection-list>
