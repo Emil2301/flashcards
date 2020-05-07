@@ -1,13 +1,33 @@
 div.container {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	margin: 10px 10px;
-	h1 {
-		margin: 0;
-	}
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 10px;
+  h1 {
+    margin: 0;
+  }
 }
 
 .one-translation {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-gap: 0.5%;
+  background-color: #2196f3;
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  height: 200px;
+  border-radius: 5px;
+  overflow: auto;
 }

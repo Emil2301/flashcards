@@ -20,6 +20,7 @@ import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { SearchComponent } from './components/search/search.component';
 import { SwitchLangComponent } from './components/switch-lang/switch-lang.component';
 import { ViewEditModeComponent } from './components/view-edit-mode/view-edit-mode.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ViewEditModeComponent } from './components/view-edit-mode/view-edit-mod
     MatListModule,
     MatInputModule,
     FormsModule,
-    MatSlideToggleModule,
+		MatSlideToggleModule,
+		ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
