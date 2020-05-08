@@ -12,42 +12,57 @@
 </div>
 
 <div class="grid-container">
-  <div class="grid-item" *ngFor="let card of cards">
+  <div class="grid-item" [ngClass]="{ 'overflowAuto darker-background': editModeOn, 'overflowHidden': !editModeOn}" *ngFor="let card of cards" >
+    <div class="flip-card" [ngClass]="{ displayNone: editModeOn }">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>{{ card.title }}</div>
+        </div>
+        <div class="flip-card-back">
+          <ul
+            *ngIf="
+              !editionStarted || (editionStarted && titleInEdit !== card.title)
+            "
+          >
+            <ng-container *ngFor="let translation of card.translations">
+              <div class="one-translation" *ngIf="translation.saved">
+                <li
+                  *ngIf="translation.saved"
+                  [innerHTML]="translation.source"
+                ></li>
+                <div
+                  *ngIf="translation.saved"
+                  [innerHTML]="translation.target"
+                ></div>
+              </div>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div>
-      <button
-        mat-raised-button
-        *ngIf="editModeOn"
-        (click)="editFlashcard(card.title)"
-      >
-        Edit
-      </button>
-      <button
-        mat-raised-button
-        color="warn"
-        *ngIf="editModeOn"
-        (click)="deleteFlashcard(card.title)"
-      >
-        Delete
-      </button>
-      <br />
-      {{ card.title }}
-      <ul
-        *ngIf="
-          !editionStarted || (editionStarted && titleInEdit !== card.title)
-        "
-      >
-        <ng-container *ngFor="let translation of card.translations">
-          <div class="one-translation">
-            <li *ngIf="translation.saved" [innerHTML]="translation.source"></li>
-            <div
-              *ngIf="translation.saved"
-              [innerHTML]="translation.target"
-            ></div>
-          </div>
-        </ng-container>
-      </ul>
-      <div *ngIf="translations && titleInEdit === card.title">
+      <div *ngIf="editModeOn">
+        <button
+          mat-raised-button
+          *ngIf="editModeOn"
+          (click)="editFlashcard(card.title)"
+        >
+          Edit
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          *ngIf="editModeOn"
+          (click)="deleteFlashcard(card.title)"
+        >
+          Delete
+        </button>
+        <br />
+        <br />
+        {{ card.title }}
+
         <mat-selection-list
+          *ngIf="translations && titleInEdit === card.title"
           (selectionChange)="onCheckboxChange($event, card.title)"
           #list
         >
@@ -59,7 +74,14 @@
             <p [innerHTML]="translation.target"></p>
           </mat-list-option>
         </mat-selection-list>
-        <button mat-raised-button (click)="endSaveMode()">Save edition</button>
+        <button
+          *ngIf="translations && titleInEdit === card.title"
+          mat-raised-button
+					(click)="endSaveMode()"
+					class="save-edition"
+        >
+          Save edit
+        </button>
       </div>
     </div>
   </div>

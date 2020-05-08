@@ -9,13 +9,11 @@ let translations;
 let language = 'depl';
 
 router.get('/:language', function (req, res) {
-  console.log(req.params.language);
   language = req.params.language;
   res.json({ language: req.params.language });
 });
 
 router.post('/', function (req, res, next) {
-  console.log(req.body.title);
   const options = {
     url: `https://api.pons.com/v1/dictionary?q=${req.body.title}&l=${language}`,
     headers: {

@@ -15,13 +15,10 @@ export class SwitchLangComponent implements OnInit {
 
   changeLanguage(event) {
 		this.selected = event.value;
-		console.log(event.value);
 		this.searchService.changeLanguage(event.value).subscribe(
       (data) => {
-				console.log(data);
       },
       (error) => {
-				console.log(error);
       }
     );
 		

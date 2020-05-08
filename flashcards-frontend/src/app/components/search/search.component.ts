@@ -11,19 +11,19 @@ export class SearchComponent {
   constructor(private searchService: SearchService) {}
 
   title;
-	translations;
-	error;
+  translations;
+  error;
 
   sendInputValue(inputValue) {
-    this.searchService.searchFlashcard(inputValue.trim()).subscribe(
+		inputValue = this.cleanUpSpecialChars(inputValue.trim());
+    this.searchService.searchFlashcard(inputValue).subscribe(
       (data: Search) => {
         this.title = data.title;
         this.translations = data.translations;
         this.translations.map((translation) => {
           translation.saved = false;
-				});
-				this.error = '';
-        console.log(this.translations);
+        });
+        this.error = '';
       },
       (error) => {
         this.error = error;
@@ -32,24 +32,38 @@ export class SearchComponent {
     );
   }
 
+  cleanUpSpecialChars(str) {
+    str.toLowerCase();
+    return str
+      .replace('ą', 'a')
+      .replace('ć', 'c')
+      .replace('ę', 'e')
+      .replace('ń', 'n')
+      .replace('ó', 'o')
+      .replace('ł', 'l')
+      .replace('ź', 'z')
+      .replace('ż', 'z');
+  }
+
   onCheckboxChange(event) {
     if (event.option._selected) {
-			let translations = event.option.value[1];
-			let selected = event.option.value[0];
-			translations.map((translation) => {
+      let translations = event.option.value[1];
+      let selected = event.option.value[0];
+      translations.map((translation) => {
         if (translation.target === event.option.value[0].target) {
           translation.saved = true;
         }
-			});
-			this.searchService
-        .postFlashcard(this.title, selected.source, selected.target, translations)
+      });
+      this.searchService
+        .postFlashcard(
+          this.title,
+          selected.source,
+          selected.target,
+          translations
+        )
         .subscribe(
-          (data: Search) => {
-            console.log(data);
-          },
-          (error) => {
-            console.log(error);
-          }
+          (data: Search) => {},
+          (error) => {}
         );
     }
   }
