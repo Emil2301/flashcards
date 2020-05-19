@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const createError = require('http-errors');
-const Flashcard = require('../models/flashcard');
+const Flashcard = require('../models/flashcard'); // not used here
 
 let title = '';
 let translations;
@@ -14,19 +14,18 @@ router.get('/:language', function (req, res) {
 });
 
 router.post('/', function (req, res, next) {
-  const options = {
-    url: `https://api.pons.com/v1/dictionary?q=${req.body.title}&l=${language}`,
+  const options = { // you are defining this object by each post
+    url: `https://api.pons.com/v1/dictionary?q=${req.body.title}&l=${language}`, // from config file this part https://api.pons.com/v1
     headers: {
-      'X-Secret': '03777962ff3866e056ddee8eb0a9d2f54d953b9a108083985b0a9275b26b2435',
+      'X-Secret': process.env.SECRET_KEY // config.js , // from config file THIS KEY IS IN PUBLIC REPO !!!
     },
   };
   function callback(error, response, body) {
     if (!error && response.statusCode === 200) {
       const data = JSON.parse(body);
-      let newInfo = [];
-      data.map((obj) => {
+      let newInfo = data.map((obj) => { // cos takiego map zawsze cos zwraca tablice nowa
         if (obj.lang === 'pl') {
-          newInfo = newInfo.concat(obj.hits);
+          newInfo = newInfo.concat(obj.hits); // you are doing here exactly the same what in line 31
         } else if (obj.lang === 'es' || 'de' || 'ru' || 'en') {
           newInfo = newInfo.concat(obj.hits);
         }

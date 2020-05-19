@@ -10,12 +10,12 @@ import { SearchService } from 'src/app/services/search.service';
   styleUrls: ['./view-edit-mode.component.scss'],
 })
 export class ViewEditModeComponent implements OnInit {
-  cards;
+  cards: Observable<SomeModel>; // this should be observable // there is no type for the following fields
   editModeOn = false;
   editionStarted = false;
   translations;
   titleInEdit;
-  autoRenew = new FormControl();
+  autoRenew = new FormControl();  // should be in constructor ?
 
   constructor(private searchService: SearchService) {}
 
@@ -23,8 +23,12 @@ export class ViewEditModeComponent implements OnInit {
     this.getFlashcard();
   }
 
+  ngOnDestory() {
+    subscriber.unsubscribe() // wtedy tego nie musisz robic
+  }
+
   getFlashcard() {
-    this.searchService.getFlashcard().subscribe(
+    this.searchService.getFlashcard().subscribe(  // subscribe dirrectly to observable and with async | pipe show results
       (data: DB) => {
         this.cards = data.cards;
       },
@@ -44,7 +48,7 @@ export class ViewEditModeComponent implements OnInit {
   editFlashcard(title) {
     this.titleInEdit = title;
     this.editionStarted = true;
-    this.searchService.searchFlashcard(title).subscribe(
+    this.searchService.searchFlashcard(title).subscribe( // would be bettter to save previous result in order to not make to much calls to server
       (data: Search) => {
         this.translations = data.translations;
         this.translations.map((translation) => {

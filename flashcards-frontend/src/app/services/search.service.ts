@@ -12,7 +12,8 @@ export class SearchService {
   constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
-    if (error.status === 404) {
+    if (error.status === 404) { // api mistake ! the path exists
+      // I get it that we get 404 from api but anyway it should not be error just empty response or smth. and if empty response show label
       return throwError('Your input was incorrect');
     }
     if (error.error instanceof ErrorEvent) {
@@ -31,7 +32,7 @@ export class SearchService {
 
   searchFlashcard(inputValue): Observable<Search> {
     return this.http
-      .post<Search>('http://localhost:3000/search', {
+      .post<Search>('http://localhost:3000/search', {  // ${config.baseUrl}/search
         title: inputValue,
       })
       .pipe(catchError(this.handleError));
@@ -48,9 +49,9 @@ export class SearchService {
       .pipe(catchError(this.handleError));
   }
 
-  getFlashcard(): Observable<DB> {
+  getFlashcard(): Observable<DB> { // getFlashcardS
     return this.http
-      .get<DB>('http://localhost:3000/save')
+      .get<DB>('http://localhost:3000/flashcards') // some beter naming
       .pipe(catchError(this.handleError));
   }
 

@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 mongoose.set('useFindAndModify', false);
 
-mongoose.connect('mongodb://localhost/test', {
+mongoose.connect('mongodb://localhost/test', { // config.js
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -19,10 +19,10 @@ db.once('open', function () {
   console.log('connected to db');
 });
 
-const Flashcard = require('./models/flashcard');
+const Flashcard = require('./src/models/flashcard');
 
-const searchRouter = require('./routes/search');
-const saveRouter = require('./routes/save');
+const searchRouter = require('./src/routes/search');
+const saveRouter = require('./src/routes/save');
 
 const app = express();
 

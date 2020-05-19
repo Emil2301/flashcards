@@ -34,13 +34,13 @@ router.post('/', function (req, res, next) {
     }
   });
 
-  res.json({ message: 'Your flashcard was saved', title: req.body.title, source: req.body.source, target: req.body.target });
+  res.json({ message: 'Your flashcard was saved', title: req.body.title, source: req.body.source, target: req.body.target, status: 'STATUS_SUCCEED' }); // some status message like succeed both here and in frontnedn
 });
 
 router.delete('/:title', function (req, res) {
   Flashcard.findOneAndRemove({ title: req.params.title }, (err, response) => {
     Flashcard.find((err, cards) => {
-      if (err) return console.error(err);
+      if (err) return console.error(err);  // some nice tooling for logs time etc 12:15 /takasciezka takie dane itd // biblioteka
       res.json({ cards });
     });
   });

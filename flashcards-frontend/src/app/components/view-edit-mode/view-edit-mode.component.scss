@@ -1,4 +1,4 @@
-div.container {
+div.container { // no mobile :/
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -12,7 +12,7 @@ div.container {
   margin-bottom: 10px;
   display: flex;
 	flex-direction: column;
-	
+
 }
 
 .grid-container {
@@ -28,15 +28,15 @@ div.container {
   text-align: center;
   height: 200px;
 	border-radius: 5px;
-	overflow: auto;	
+	overflow: auto;
 }
 
 .overflowAuto {
-	overflow: auto;	
+	overflow: auto;
 }
 
 .overflowHidden {
-	overflow: hidden;	
+	overflow: hidden;
 }
 
 
@@ -91,7 +91,7 @@ div.container {
 	overflow: auto;
 	display: flex;
 	justify-content: center;
-	align-items: center;	
+	align-items: center;
 }
 
 .displayNone {

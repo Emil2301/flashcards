@@ -24,10 +24,11 @@
 <mat-selection-list
   #list
   *ngIf="translations"
-  (selectionChange)="onCheckboxChange($event)"
+  selected="jakaZmienna"
+  (selectionChange)="onCheckboxChange($event, jakasZmienna)"
 >
   <mat-list-option
-    *ngFor="let translation of translations"
+    *ngFor="{ async | mojObserver }" /> // https://angular.io/api/common/AsyncPipe
     [value]="[translation, translations]"
   >
     <p [innerHTML]="translation.source"></p>
