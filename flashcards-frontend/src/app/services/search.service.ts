@@ -48,7 +48,7 @@ export class SearchService {
       .pipe(catchError(this.handleError));
   }
 
-  getFlashcard(): Observable<DB> {
+  getFlashcards(): Observable<DB> {
     return this.http
       .get<DB>('http://localhost:3000/save')
       .pipe(catchError(this.handleError));

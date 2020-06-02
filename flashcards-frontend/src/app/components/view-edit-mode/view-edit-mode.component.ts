@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { DB } from 'src/app/models/db.model';
 import { Search } from 'src/app/models/search.model';
 import { SearchService } from 'src/app/services/search.service';
+import { Translation } from 'src/app/models/translation.model';
 
 @Component({
   selector: 'app-view-edit-mode',
@@ -13,18 +14,18 @@ export class ViewEditModeComponent implements OnInit {
   cards;
   editModeOn = false;
   editionStarted = false;
-  translations;
+  translations: Translation[];
   titleInEdit;
   autoRenew = new FormControl();
 
   constructor(private searchService: SearchService) {}
 
   ngOnInit(): void {
-    this.getFlashcard();
+    this.getFlashcards();
   }
 
-  getFlashcard() {
-    this.searchService.getFlashcard().subscribe(
+  getFlashcards() {
+    this.searchService.getFlashcards().subscribe(
       (data: DB) => {
         this.cards = data.cards;
       },
@@ -34,7 +35,7 @@ export class ViewEditModeComponent implements OnInit {
   deleteFlashcard(title) {
     this.searchService.deleteFlashcard(title).subscribe(
       (data: DB) => {
-        this.getFlashcard();
+        this.getFlashcards();
       },
       (error) => {
       }
@@ -93,8 +94,8 @@ export class ViewEditModeComponent implements OnInit {
 
   endSaveMode() {
     this.editionStarted = false;
-    this.translations = '';
-    this.getFlashcard();
+    this.translations = [];
+    this.getFlashcards();
     this.titleInEdit = null;
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Search } from 'src/app/models/search.model';
 import { SearchService } from 'src/app/services/search.service';
+import { Translation } from 'src/app/models/translation.model';
 
 @Component({
   selector: 'app-search',
@@ -10,8 +11,8 @@ import { SearchService } from 'src/app/services/search.service';
 export class SearchComponent {
   constructor(private searchService: SearchService) {}
 
-  title;
-  translations;
+  title: String;
+  translations: Translation[];
   error;
 
   sendInputValue(inputValue) {
@@ -27,7 +28,7 @@ export class SearchComponent {
       },
       (error) => {
         this.error = error;
-        this.translations = '';
+        this.translations = [];
       }
     );
   }
